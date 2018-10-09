@@ -1,6 +1,7 @@
 import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import controller from './controller';
+const logger = require('./util/koagger');
 const PORT = 3000;
 const app = new Koa();
 
@@ -11,11 +12,13 @@ app.use(async (ctx, next) => {
   await next();
 });
 
+app.use(logger);
+
 // parse request body:
 app.use(bodyParser());
 
 // add controllers:
-app.use(controller());
+// app.use(controller());
 
 app.listen(3000, () => {
   // console.log(`Server run in http://127.0.0.1:${PORT} success, in ${environment} mode.`);
