@@ -2,8 +2,9 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const fs = require('fs');
 const Router = require("koa-router");
+const util_1 = require("./util");
 // controllers 文件处理
-const fileType = (trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';
+const fileType = (util_1.Util.trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';
 /**
  * 处理 `./controllers`文件夹下的 `*.ts` 文件.
  */

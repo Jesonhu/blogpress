@@ -1,9 +1,10 @@
 
 const fs = require('fs');
 import * as Router from 'koa-router';
+import { Util } from './util';
 
 // controllers 文件处理
-const fileType = (trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';
+const fileType = (Util.trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';
 
 /**
  * 处理 `./controllers`文件夹下的 `*.ts` 文件. 
@@ -47,16 +48,6 @@ function addControllers(router: Router, dir: string) {
 
     // const Index =  require('./controllers');
     // addMapping(router, Index);
-}
-
-/**
- * 去掉字符串两边空白 
- * 
- * @see [参考](https://www.jb51.net/article/109522.htm)
- */
-function trim(str: string = ''): string {
-    const reg = /(^\s*)|(\s*$)/g;
-    return str.replace(reg, '');
 }
 
 // module.exports = function (dir) {
