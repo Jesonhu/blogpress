@@ -4,7 +4,7 @@ import * as path from 'path';
 // const fs = require('fs');
 // const path = require('path');
 import * as Router from 'koa-router';
-import { Util } from './util';
+import { Util } from '../util';
 
 // controllers 文件处理
 const fileType = (Util.trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';

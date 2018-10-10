@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
-const controller_1 = require("./controller");
+const controller_1 = require("./app/controller");
 const log_util_1 = require("./util/log_util");
 const PORT = 3000;
 const app = new Koa();
@@ -18,7 +18,10 @@ const app = new Koa();
 app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
     console.log(`Process ${ctx.request.method} ${ctx.request.url}...`);
     // @see next() https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/001471087582981d6c0ea265bf241b59a04fa6f61d767f6000
-    // await next();
+    yield next();
+}));
+// logger
+app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
     //响应开始时间
     const start = new Date();
     //响应间隔时间
@@ -40,26 +43,6 @@ app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
 app.use(bodyParser());
 // add controllers:
 app.use(controller_1.default());
-// logger
-// app.use(async (ctx, next) => {
-//   //响应开始时间
-//   const start = new Date();
-//   //响应间隔时间
-//   let ms;
-//   try {
-//     //开始进入到下一个中间件
-//     console.log('logger 0');
-//     await next();
-//     console.log('logger 1');
-//     ms = new Date().getTime() - start.getTime();
-//     //记录响应日志
-//     logUtil.loggResponse(ctx, ms);
-//   } catch (error) {
-//     ms = new Date().getTime() - start.getTime();
-//     //记录异常日志
-//     logUtil.loggError(ctx, error, ms);
-//   }
-// });
 app.listen(3000, () => {
     // console.log(`Server run in http://127.0.0.1:${PORT} success, in ${environment} mode.`);
     console.log(`Server run in http://127.0.0.1:${PORT} success, in ${process.env.NODE_ENV} mode.`);
