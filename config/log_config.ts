@@ -20,6 +20,7 @@ const baseLogPath = path.resolve(__dirname, '../logs')
 const errorPath = "/error";
 //错误日志文件名
 const errorFileName = "error";
+// const errorFileName = "";
 //错误日志输出完整路径
 const errorLogPath = baseLogPath + errorPath + "/" + errorFileName;
 // var errorLogPath = path.resolve(__dirname, "../logs/error/error");
@@ -28,7 +29,8 @@ const errorLogPath = baseLogPath + errorPath + "/" + errorFileName;
 //响应日志目录
 const responsePath = "/response";
 //响应日志文件名
-const responseFileName = "response";
+// const responseFileName = "response";
+const responseFileName = "";
 //响应日志输出完整路径
 const responseLogPath = baseLogPath + responsePath + "/" + responseFileName;
 // const responseLogPath = path.resolve(__dirname, "../logs/response/response");
@@ -52,7 +54,7 @@ export default {
       "encoding": "utf-8",
       "maxLogSize": 2000000,
       "numBackups": 5,
-      "pattern": "-yyyy-MM-dd.log",
+      "pattern": "yyyy-MM-dd.log",
       "alwaysIncludePattern": true,
       "path": responsePath
     }
