@@ -28,7 +28,11 @@ module.exports = {
   'POST /signin': fn_signin
 };
 
-// export const controller = {
+// Notice: ts 中还不支持动态移入模块
+// @see 动态引入
+// https://github.com/tc39/proposal-dynamic-import
+// const controller = {
 //   'GET /': fn_index,
 //   'POST /signin': fn_signin
 // }
+// export default controller;

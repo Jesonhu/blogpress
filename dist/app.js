@@ -12,7 +12,8 @@ const Koa = require("koa");
 const bodyParser = require("koa-bodyparser");
 const controller_1 = require("./app/controller");
 const log_util_1 = require("./util/log_util");
-const PORT = 3000;
+const environments_1 = require("./config/environments");
+const PORT = environments_1.Environment.port;
 const app = new Koa();
 // log request URL:
 app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
@@ -43,7 +44,7 @@ app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
 app.use(bodyParser());
 // add controllers:
 app.use(controller_1.default());
-app.listen(3000, () => {
+app.listen(PORT, () => {
     // console.log(`Server run in http://127.0.0.1:${PORT} success, in ${environment} mode.`);
     console.log(`Server run in http://127.0.0.1:${PORT} success, in ${process.env.NODE_ENV} mode.`);
 });
