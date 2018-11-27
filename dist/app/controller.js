@@ -1,20 +1,30 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+/**
+ * @desc 将 `app/constollers` 中所有的文件导出的内容, 作为路由使用
+ */
 const fs = require("fs");
 const path = require("path");
 // const fs = require('fs');
 // const path = require('path');
 const Router = require("koa-router");
-const util_1 = require("../util");
+const cTools_1 = require("../util/cTools");
 // controllers 文件处理
-const fileType = (util_1.Util.trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';
+const fileType = (cTools_1.Util.trim(process.env.NODE_ENV) === 'development') ? '.ts' : '.js';
 /**
  * 处理 `./controllers`文件夹下的 `*.ts` 文件.
  */
 // `./controllers` 文件夹下面的所有文件.
 let fileArr = [];
 // add url-route in /controllers: start
-function addMapping(router, mapping) {
+/**
+ * 注册路由.
+ *
+ * @param {Router} router koa-router
+ * @param {any} mapping -- { 'GET /xxx': fn_handle, 'POST /xxx': fn_handle } 类似export导出的内容
+ */
+const addMapping = (router, mapping) => {
+    // function addMapping(router: Router, mapping: any) {
     for (var url in mapping) {
         if (url.startsWith('GET ')) {
             var path = url.substring(4);
@@ -40,46 +50,15 @@ function addMapping(router, mapping) {
             console.log(`invalid URL: ${url}`);
         }
     }
-}
-// './controller' 文件夹下的文件，子文件夹不做处理
-// function addControllers(router: Router, dir: string) {
-//     fs.readdirSync(__dirname + '/' + dir).filter((f: any) => {
-//         console.log('filter', fileType, f.endsWith(fileType));
-//         return f.endsWith(fileType);
-//     }).forEach((f: any) => {
-//         console.log(`process controller: ${f}...`);
-//         let mapping = require(__dirname + '/' + dir + '/' + f);
-//         addMapping(router, mapping);
-//     });
-//     // const Index =  require('./controllers');
-//     // addMapping(router, Index);
-// }
-/**
- * 读取 './controller'文件夹下的所有文件.
- * 如果是文件夹则递归找出文件夹下的文件.
- */
-function addControllers(router, dir) {
-    // 筛选出文件到`fileArr`中
-    fileDisplaySync(__dirname + '/' + dir);
-    // 筛选出 `.ts` 或 `.js`
-    // 引入文件，并编辑控制器
-    fileArr.filter((f) => {
-        return f.endsWith(fileType);
-    }).forEach((f) => {
-        console.log(`process controller: ${f}...`);
-        // let mapping = require(__dirname + '/' + dir + '/' + f);
-        let mapping = require(f);
-        addMapping(router, mapping);
-    });
-}
-// add url-route in /controllers: end
+};
 /**
  * 文件遍历方法
  * @param filePath 需要遍历的文件路径
  * @see [fs.readdir()](http://nodejs.cn/api/fs.html#fs_fs_readdir_path_options_callback)
  * @see https://blog.csdn.net/younglao/article/details/77046830?locationNum=8&fps=1
  */
-function fileDisplaySync(filePath) {
+const fileDisplaySync = (filePath) => {
+    // function fileDisplaySync(filePath: string): void{
     //根据文件路径读取文件，返回文件列表
     const files = fs.readdirSync(filePath);
     //遍历读取到的文件列表
@@ -97,7 +76,42 @@ function fileDisplaySync(filePath) {
             fileDisplaySync(filedir);
         }
     });
-}
+};
+// './controller' 文件夹下的文件，子文件夹不做处理
+// function addControllers(router: Router, dir: string) {
+//     fs.readdirSync(__dirname + '/' + dir).filter((f: any) => {
+//         console.log('filter', fileType, f.endsWith(fileType));
+//         return f.endsWith(fileType);
+//     }).forEach((f: any) => {
+//         console.log(`process controller: ${f}...`);
+//         let mapping = require(__dirname + '/' + dir + '/' + f);
+//         addMapping(router, mapping);
+//     });
+//     // const Index =  require('./controllers');
+//     // addMapping(router, Index);
+// }
+/**
+ * 读取 './controller'文件夹下的所有文件.
+ * 如果是文件夹则递归找出文件夹下的文件.
+ */
+const addControllers = (router, dir) => {
+    // function addControllers(router: Router, dir: string) {
+    // 筛选出文件到`fileArr`中
+    fileDisplaySync(__dirname + '/' + dir);
+    // 筛选出 `.ts` 或 `.js`
+    // 引入文件，并编辑控制器
+    fileArr.filter((f) => {
+        return f.endsWith(fileType);
+    }).forEach((f) => {
+        console.log(`process controller: ${f}...`);
+        // let mapping = require(__dirname + '/' + dir + '/' + f);
+        let mapping = require(f);
+        // ts 不支持代码中引入模块
+        // import * as mapping from f;
+        addMapping(router, mapping);
+    });
+};
+// add url-route in /controllers: end
 // module.exports = function (dir) {
 //     let controllers_dir = dir || 'controllers';
 //     let router = require('koa-router')();

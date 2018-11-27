@@ -8,25 +8,39 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var fn_register = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
-    ctx.response.body = `<h1>Index</h1>
-      <p>RightContent: {name: not empty, password: 123456}</p>
+const mysql_1 = require("../../config/mysql");
+const fn_register = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
+    ctx.response.body = `<h1>注册</h1>
+      <p>RightContent: 用户名和密码都不能为空</p>
       <form action="/register/result" method="post">
           <p>Name: <input name="name" value="koa"></p>
           <p>Password: <input name="password" type="password" value="123456"></p>
           <p><input type="submit" value="Submit"></p>
       </form>`;
 });
-var fn_registerResult = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
-    var name = ctx.request.body.name || '', password = ctx.request.body.password || '';
-    console.log(`signin with name: ${name}, password: ${password}`);
-    //   if (name === 'koa' && password === '123456') {
-    if (name !== '' && password === '123456') {
-        ctx.response.body = `<h1>Welcome, ${name}!</h1>`;
+const fn_registerResult = (ctx, next) => __awaiter(this, void 0, void 0, function* () {
+    const name = ctx.request.body.name || '';
+    const password = ctx.request.body.password || '';
+    if (name === '' || password === '') {
+        ctx.response.body = `<h1>Login failed!--用户或密码不能为空</h1>
+    <p><a href="/register">Try again</a></p>`;
     }
-    else {
-        ctx.response.body = `<h1>Login failed!</h1>
+    try {
+        const sqlStrSelect = 'SELECT * FROM `user` WHERE username = ?';
+        const sqlInsertUser = 'INSERT INTO `user` (`username`, `pass`) VALUES (?, ?)';
+        const resData = yield mysql_1.Mysql(sqlStrSelect, [name]);
+        const res = resData;
+        if (res.length === 0) {
+            yield mysql_1.Mysql(sqlInsertUser, [name, password]);
+            ctx.response.body = `<h1>注册成功, Welcome, ${name}!</h1>`;
+        }
+        else { // 已经注册过了
+            ctx.response.body = `<h1>Login failed!--已存在相同的用户名</h1>
       <p><a href="/register">Try again</a></p>`;
+        }
+    }
+    catch (err) {
+        console.log(err);
     }
 });
 module.exports = {

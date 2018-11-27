@@ -9,7 +9,7 @@ import { Context } from 'koa';
 /** 
  * 微信网页授权控制器.
  */
-const fn_apiTest = async (ctx: Context, next: Promise<any>): Promise<void> => {
+const fn_apiTest = async (ctx: Context, next: any): Promise<void> => {
   let responseName = '你好';
   
   if (ctx.query && ctx.query.name) {
