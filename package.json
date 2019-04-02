@@ -1,44 +1,18 @@
 {
-  "name": "Koa-typescript-start",
-  "version": "1.0.0",
-  "description": "Koa & Typescript demo",
+  "name": "blogjs",
+  "version": "0.0.0-beta.0",
+  "description": "BlogJS 基于 TS 的 Blog Web服务器.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "env:dev": "set NODE_ENV=development",
-    "dev": "cross-env NODE_ENV=development nodemon -x ts-node --inspect app.ts",
-    "start": "node dist/app.js",
-    "build": "rd /s /q @types && tsc",
-    "compile": "tsc",
-    "serve": "cross-env NODE_ENV=production node ./dist/app.js",
-    "pm2": "cross-env NODE_ENV=production pm2 start ./dist/app.js --name=koa-ts",
-    "clean": "npm run cleanTypes",
-    "cleanDist": "rd /s /q dist",
-    "cleanTypes": "rd /s /q @types",
-    "cleanMac": "rm -rf dist"
+    "dev": "node ./app/index.js"
   },
-  "keywords": [],
   "author": "Jesonhu",
   "license": "ISC",
   "dependencies": {
-    "cross-env": "^5.2.0",
-    "kcors": "^2.2.2",
-    "koa": "^2.5.3",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0",
-    "log4js": "^3.0.6",
-    "mysql": "^2.16.0"
+    "koa": "^2.7.0"
   },
   "devDependencies": {
-    "@types/kcors": "^2.2.3",
-    "@types/koa": "^2.0.46",
-    "@types/koa-bodyparser": "^5.0.1",
-    "@types/koa-router": "^7.0.32",
-    "@types/log4js": "^2.3.5",
-    "@types/mysql": "^2.15.5",
-    "@types/node": "^10.11.3",
-    "nodemon": "^1.18.7",
-    "ts-node": "^3.3.0",
-    "typescript": "^3.1.1"
+    "@types/koa": "^2.0.48"
   }
 }

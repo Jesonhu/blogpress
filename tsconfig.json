@@ -1,25 +1,28 @@
 {
   "compilerOptions": {
-    "outDir": "./dist",
     "module": "commonjs",
+    "target": "es2017",
     "noImplicitAny": true,
+    "removeComments": true,
     "preserveConstEnums": true,
-    "declaration": true,
-    "declarationDir": "./@types",
+    "suppressImplicitAnyIndexErrors": true,
     "sourceMap": false,
-    "target": "es2015",
+    "esModuleInterop": true,
     "lib": ["es2015"],
-    "typeRoots": [
-      "node_modules/@types",
-      "typings"
-    ]
+    "outDir": "app",
+    "baseUrl": ".",
+    "paths": {
+      "blogjs": [
+        "src/blogjs/index"
+      ]
+    }
   },
-  "includes": [
+  "include": [
     "app.ts",
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "**/*.spec.ts"
   ]
 }

@@ -1,2 +1,4 @@
+/dist
+/app
 node_modules
 logs
