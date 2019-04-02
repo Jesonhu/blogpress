@@ -1,8 +1,8 @@
 {
-  "name": "blogjs",
+  "name": "blogpress",
   "version": "0.0.0-beta.0",
-  "description": "BlogJS 基于 TS 的 Blog Web服务器.",
-  "main": "index.js",
+  "description": "blogpress base TS & Koa2 blog server.",
+  "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node ./app/index.js"
