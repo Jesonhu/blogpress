@@ -1,10 +1,10 @@
-import Koa from 'koa';
+import * as Koa from 'koa';
 
-namespace blogjs {
+namespace blogpress {
   interface IBlog {
     app: Koa
   }
   export class Blog extends Koa {}
 }
 
-export default blogjs;
+export default blogpress;

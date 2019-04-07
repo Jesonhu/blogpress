@@ -5,14 +5,22 @@
   "main": "app/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node ./app/index.js"
+    "dev": "cross-env NODE_ENV=development nodemon -x ts-node -r tsconfig-paths/register ./src/index.ts"
   },
   "author": "Jesonhu",
   "license": "ISC",
   "dependencies": {
-    "koa": "^2.7.0"
+    "cross-env": "^5.2.0",
+    "koa": "^2.7.0",
+    "log4js": "^4.1.0",
+    "mysql": "^2.16.0",
+    "yargs": "^13.2.2"
   },
   "devDependencies": {
-    "@types/koa": "^2.0.48"
+    "@types/koa": "^2.0.48",
+    "nodemon": "^1.18.10",
+    "ts-node": "^8.0.3",
+    "tsconfig-paths": "^3.8.0",
+    "typescript": "^3.4.2"
   }
 }
