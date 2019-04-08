@@ -9,7 +9,7 @@ export default {
     port: 3306,
     user: 'root',
     password: 'root',
-    database: 'node_demo',
+    database: 'test',
     connectionLimit: 1,
     logger: console.log.bind(console), /* eslint no-console: ["error", { allow: ["log"] }] */
     logConnect: false,
