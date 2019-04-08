@@ -1,13 +1,16 @@
 import blogpress from 'blogpress'
+import CONFIG from '../config'
+
 const Blog = blogpress.Blog;
 
-const PORT = 3000;
 export default async function bootstrap() {
-  const app = new Blog();
+  const app = new Blog()
 
   app.use(async ctx => {
-    ctx.body = 'Hello World';
+    ctx.body = 'Hello World'
   });
 
-  return await app.listen(PORT);
+  const port = CONFIG.PORT
+
+  return await app.listen(port)
 }
